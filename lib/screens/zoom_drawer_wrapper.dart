@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:grocery/screens/address_screen.dart';
+import 'package:grocery/screens/coupon_screen.dart';
+import 'package:grocery/screens/customer_support_screen.dart';
 import 'package:grocery/screens/favorite_screen.dart';
 import 'package:grocery/screens/my_orders_screen.dart';
+import 'package:grocery/screens/refer_and_earn_screen.dart';
 import 'package:grocery/screens/shoping_bag_screen.dart';
+import 'package:grocery/screens/track_order_screen.dart';
 
 import 'all_categories_screen.dart';
 import 'home_screen.dart';
@@ -53,26 +58,28 @@ class _ZoomDrawerWrapperState extends State<ZoomDrawerWrapper> {
       case 4:
         return MyOrdersScreen(controller: drawerController);
       case 5:
-        return const PlaceholderScreen(title: 'Address');
+        return TrackOrderScreen(controller: drawerController);
       case 6:
-        return const PlaceholderScreen(title: 'Coupon');
+        return AddressScreen(controller: drawerController);
       case 7:
-        return const PlaceholderScreen(title: 'Customer Support');
+        return  CouponScreen(controller:drawerController);
       case 8:
-        return const PlaceholderScreen(title: 'Settings');
+        return CustomerSupportScreen(controller: drawerController);
       case 9:
-        return const PlaceholderScreen(title: 'Wallet');
+        return ReferAndEarnScreen(controller: drawerController, referralCode: '',userName: '',);
       case 10:
-        return const PlaceholderScreen(title: 'Loyalty Points');
+        return const PlaceholderScreen(title: 'Wallet');
       case 11:
-        return const PlaceholderScreen(title: 'Terms & Conditions');
+        return const PlaceholderScreen(title: 'Loyalty Points');
       case 12:
-        return const PlaceholderScreen(title: 'Privacy Policy');
+        return const PlaceholderScreen(title: 'Terms & Conditions');
       case 13:
-        return const PlaceholderScreen(title: 'About Us');
+        return const PlaceholderScreen(title: 'Privacy Policy');
       case 14:
-        return const PlaceholderScreen(title: 'FAQ');
+        return const PlaceholderScreen(title: 'About Us');
       case 15:
+        return const PlaceholderScreen(title: 'FAQ');
+      case 16:
         return const PlaceholderScreen(title: 'Logged Out');
       default:
         return const PlaceholderScreen(title: 'Coming Soon...');

@@ -21,6 +21,11 @@ dependencies:
   geolocator: ^14.0.0
   geocoding: ^2.2.0
   permission_handler: ^11.3.0
+  intl_phone_field: ^3.2.0
+  google_maps_flutter: ^2.5.0
+  image_picker: ^1.0.4
+  share_plus: ^11.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -31,4 +36,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/emptycart.webp
+    - assets/images/refer.jpg
     
