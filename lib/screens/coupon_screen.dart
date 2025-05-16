@@ -17,13 +17,18 @@ class CouponScreen extends StatelessWidget {
             controller.toggle!();
           },
         ),
-        title: const Text("Coupon", style: TextStyle(color: Colors.green)),
+        title: const Text(
+          "Coupon",
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
-        
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, top: 20), // Padding from top-left
+        padding: const EdgeInsets.only(
+          left: 20,
+          top: 20,
+        ), // Padding from top-left
         child: GestureDetector(
           onTap: () {
             Clipboard.setData(const ClipboardData(text: 'FOODIE50'));
@@ -40,7 +45,8 @@ class CouponScreen extends StatelessWidget {
           },
           child: Container(
             height: 150,
-            width: MediaQuery.of(context).size.width * 0.9, // 90% of screen width
+            width:
+                MediaQuery.of(context).size.width * 0.9, // 90% of screen width
             decoration: BoxDecoration(
               color: const Color(0xFF006241),
               borderRadius: BorderRadius.circular(16),

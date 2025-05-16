@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({super.key, required void Function(bool isDark) toggleTheme, required bool isDarkTheme});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

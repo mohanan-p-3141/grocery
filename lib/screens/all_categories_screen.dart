@@ -1,50 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/src/drawer_controller.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-class AllCategoriesScreen extends StatelessWidget {
+class AllCategoriesScreen extends StatefulWidget {
   final ZoomDrawerController controller;
   const AllCategoriesScreen({super.key, required this.controller});
 
   @override
+  State<AllCategoriesScreen> createState() => _AllCategoriesScreenState();
+}
+
+class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
+  // Category list and their respective subcategories
+  final List<String> categories = [
+    "Fruits and Vegetables",
+    "Meat and Fish",
+    "Breakfast",
+    "Beverages",
+    "Health Care",
+    "Cleaning",
+    "Personal Care",
+    "Cooking",
+  ];
+
+  final Map<String, List<String>> subCategories = {
+    "Fruits and Vegetables": ["All", "Fruits", "Vegetables"],
+    "Meat and Fish": ["All", "Chicken", "Beef", "Fish"],
+    "Breakfast": ["All", "Breads & Cereals", "Dairy"],
+    "Beverages": ["All", "Juice", "Tea & Coffee", "Soft Drinks"],
+    "Health Care": ["All", "Antiseptics"],
+    "Cleaning": ["All", "Cleaning Supplies"],
+    "Personal Care": ["All", "Women's Care"],
+    "Cooking": ["All", "Spices", "Daily Cookings"],
+  };
+
+  String selectedCategory = "Fruits and Vegetables";
+
+  @override
   Widget build(BuildContext context) {
+    final subItems = subCategories[selectedCategory] ?? [];
+
     return Scaffold(
       appBar: AppBar(
-        leading:IconButton(icon:const Icon(Icons.menu),
-        onPressed: (){
-          controller.toggle!();
-        },),title:  const Text("All Categories"),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
+        title: const Text(
+          "All Categories",
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.green),
+          onPressed: () {
+            widget.controller.toggle!();
+          },
+        ),
       ),
       body: Row(
         children: [
-          // Left side categories list (vertically scrollable)
+          // Left side: Categories
           Expanded(
             flex: 1,
-            child: ListView(
-              children: [
-                _buildCategoryItem("Fruits and Vegetables", isSelected: true),
-                _buildCategoryItem("Meat and Fish"),
-                _buildCategoryItem("Breakfast"),
-                _buildCategoryItem("Beverages"),
-                _buildCategoryItem("Health Care"),
-                _buildCategoryItem("Cleaning"),
-                _buildCategoryItem("Personal Care"),
-              ],
+            child: ListView.builder(
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                String category = categories[index];
+                bool isSelected = category == selectedCategory;
+
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedCategory = category;
+                    });
+                  },
+                  child: _buildCategoryItem(category, isSelected: isSelected),
+                );
+              },
             ),
           ),
 
-          // Right side subcategories
+          // Right side: Subcategories
           Expanded(
             flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                ListTile(title: Text("All"), trailing: Icon(Icons.chevron_right)),
-                ListTile(title: Text("Fruits"), trailing: Icon(Icons.chevron_right)),
-                ListTile(title: Text("Vegetables"), trailing: Icon(Icons.chevron_right)),
-              ],
+            child: ListView.builder(
+              itemCount: subItems.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(subItems[index]),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    // Optional: Add navigation or action here
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Tapped on ${subItems[index]}")),
+                    );
+                  },
+                );
+              },
             ),
-          )
+          ),
         ],
       ),
     );

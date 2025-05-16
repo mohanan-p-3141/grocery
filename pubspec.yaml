@@ -25,6 +25,8 @@ dependencies:
   google_maps_flutter: ^2.5.0
   image_picker: ^1.0.4
   share_plus: ^11.0.0
+  shared_preferences: ^2.5.3
+  easy_localization: ^3.0.7+1
 
 
 dev_dependencies:
@@ -37,4 +39,5 @@ flutter:
   assets:
     - assets/images/emptycart.webp
     - assets/images/refer.jpg
+    - assets/translation/
     

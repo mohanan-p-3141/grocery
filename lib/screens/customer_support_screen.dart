@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/src/drawer_controller.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class CustomerSupportScreen extends StatefulWidget {
   final ZoomDrawerController controller;
@@ -17,8 +18,9 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
   File? _image;
 
   Future<void> _pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
     if (pickedFile != null) {
       setState(() {
@@ -51,8 +53,10 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Customer Support",
-            style: TextStyle(color: Colors.green)),
+        title: const Text(
+          "Customer Support",
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -61,7 +65,7 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
             widget.controller.toggle!();
           },
         ),
-        ),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -103,8 +107,10 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
                         ),
                       Text(
                         "${message['time'].hour}:${message['time'].minute.toString().padLeft(2, '0')} | ${message['time'].day}-${message['time'].month}-${message['time'].year}",
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.grey),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
                       ),
                       const SizedBox(height: 8),
                     ],
@@ -115,8 +121,10 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
           ),
           SafeArea(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8,
+              ),
               child: Row(
                 children: [
                   IconButton(
@@ -129,7 +137,9 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
                       decoration: InputDecoration(
                         hintText: "Type here",
                         contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25),
                           borderSide: const BorderSide(color: Colors.green),
@@ -148,7 +158,7 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

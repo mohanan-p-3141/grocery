@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/src/drawer_controller.dart';
-import 'package:grocery/screens/zoom_drawer_wrapper.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class TrackOrderScreen extends StatefulWidget {
@@ -70,11 +69,15 @@ class _TrackOrderScreenState extends State<TrackOrderScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Track Order', style: TextStyle(color: Colors.green)),
+        title: const Text(
+          'Track Order',
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
+        ),
         leading: IconButton(
           onPressed: () {
             widget.controller.toggle!();
-          }, icon: const Icon(Icons.arrow_back_ios, color: Colors.green),
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.green),
         ),
         actions: [
           IconButton(

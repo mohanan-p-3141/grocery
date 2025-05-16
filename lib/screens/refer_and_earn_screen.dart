@@ -17,13 +17,15 @@ class ReferAndEarnScreen extends StatelessWidget {
 
   void copyToClipboard(BuildContext context, String text) {
     Clipboard.setData(ClipboardData(text: text));
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Referral code copied!")),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Referral code copied!")));
   }
 
   void shareReferralCode(String code) {
-    Share.share("Join GroFresh using my referral code: $code and get exciting offers!");
+    Share.share(
+      "Join GroFresh using my referral code: $code and get exciting offers!",
+    );
   }
 
   @override
@@ -36,7 +38,10 @@ class ReferAndEarnScreen extends StatelessWidget {
             controller.toggle!();
           },
         ),
-        title: const Text("Refer & Earn", style: TextStyle(color: Colors.green)),
+        title: const Text(
+          "Refer & Earn",
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
@@ -143,9 +148,7 @@ class ReferAndEarnScreen extends StatelessWidget {
           child: Text(number, style: const TextStyle(color: Colors.white)),
         ),
         const SizedBox(width: 12),
-        Expanded(
-          child: Text(text, style: const TextStyle(fontSize: 14)),
-        ),
+        Expanded(child: Text(text, style: const TextStyle(fontSize: 14))),
       ],
     );
   }
