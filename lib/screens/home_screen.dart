@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -124,14 +125,87 @@ bool _checkServiceability(String? locality) {
       'image': 'https://via.placeholder.com/150?text=Detergent',
       'price': '5.00',
       'discount': '-5.00 \$',
+      'category': 'Cleaning',
+      'isFeatured': 'true',
+      'isMostPopular': 'true',
+      'Daily Needs': 'true',
     },
     {
       'name': 'Yogurt',
       'image': 'https://via.placeholder.com/150?text=Yogurt',
       'price': '2.00',
       'discount': '-20.0 %',
+      'category': 'Dairy',
+      'isFeatured': 'false',
+      'isMostPopular': 'true',
+      'Daily Needs': 'true',
     },
+    {
+      'name': 'Organic Apples',
+      'image': 'https://via.placeholder.com/150?text=Apples',
+      'price': '3.00',
+      'discount': '-10%',
+      'category': 'Fruits',
+      'isFeatured': 'true',
+      'isMostReviewed': 'true',
+      'Daily Needs': 'true',
+    },
+    {
+      'name': 'Chicken Breast',
+      'image': 'https://via.placeholder.com/150?text=Chicken',
+      'price': '5.50',
+      'discount': '-15%',
+      'category': 'Meat',
+      'isFeatured': 'false',
+      'isMostReviewed': 'true',
+      'Daily Needs': 'true',
+    },
+    {
+      'name': 'Whole Wheat Bread',
+      'image': 'https://via.placeholder.com/150?text=Bread',
+      'price': '2.00',
+      'discount': '-5%',
+      'category': 'Breakfast',
+      'isFeatured': 'true',
+      'isMostReviewed': 'true',
+      'Daily Needs': 'true',
+    },
+    // Add more products as needed
   ];
+
+    String selectedCategory = 'All';
+  String selectedFilter = 'All';
+
+  List<Map<String, dynamic>> get filteredProducts {
+    List<Map<String, dynamic>> filtered = products;
+
+    if (selectedCategory != 'All') {
+      filtered = filtered.where((product) => product['category'] == selectedCategory).toList();
+    }
+
+    if (selectedFilter == 'Daily Needs') {
+      filtered = filtered.where((product) => product['Daily Needs'] == 'true').toList();
+    } else if (selectedFilter == 'Featured') {
+      filtered = filtered.where((product) => product['isFeatured'] == 'true').toList();
+    } else if (selectedFilter == 'Most Reviewed') {
+      filtered = filtered.where((product) => product['isMostReviewed'] == 'true').toList();
+    }
+
+    return filtered;
+  }
+
+
+  void _selectCategory(String category) {
+    setState(() {
+      selectedCategory = category;
+    });
+  }
+
+  void _selectFilter(String filter) {
+    setState(() {
+      selectedFilter = filter;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +224,7 @@ bool _checkServiceability(String? locality) {
                   border: InputBorder.none,
                 ),
               )
-            : const Text(''), // Provide a default title when not searching
+            : const Text('Home'), // Provide a default title when not searching
 
         actions: [
           IconButton(
@@ -253,17 +327,38 @@ bool _checkServiceability(String? locality) {
               ),
             ),
 
+                       // Filter Options
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Daily Needs",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text("View All", style: TextStyle(color: Colors.green)),
-                ],
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ChoiceChip(
+                      label: const Text('All'),
+                      selected: selectedFilter == 'All',
+                      onSelected: (_) => _selectFilter('All'),
+                    ),
+                    const SizedBox(width: 8),
+                    ChoiceChip(
+                      label: const Text('Daily Needs'),
+                      selected: selectedFilter == 'Daily Needs',
+                      onSelected: (_) => _selectFilter('Daily Needs'),
+                    ),
+                    const SizedBox(width: 8),
+                    ChoiceChip(
+                      label: const Text('Featured'),
+                      selected: selectedFilter == 'Featured',
+                      onSelected: (_) => _selectFilter('Featured'),
+                    ),
+                    const SizedBox(width: 8),
+                    ChoiceChip(
+                      label: const Text('Most Reviewed'),
+                      selected: selectedFilter == 'Most Reviewed',
+                      onSelected: (_) => _selectFilter('Most Reviewed'),
+                    ),
+                  ],
+                ),
               ),
             ),
 
@@ -359,7 +454,6 @@ bool _checkServiceability(String? locality) {
             ),
           ],
         ),
-      ),
-    );
-  }
+      ));
+    }
 }
